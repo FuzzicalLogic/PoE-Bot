@@ -294,6 +294,12 @@
 					await ReplyAsync(EmoteHelper.Cross + " I'm baffled by this at the moment. *No Mute Role Configured*");
 					return;
 				}
+				// Issue 26: Make sure the role exists
+				if (Context.Guild.GetRole(guild.MuteRole)?.Id != guild.MuteRole)
+				{
+					await ReplyAsync(EmoteHelper.Cross + " The mute role configured does not exist.");
+					return;
+				}
 				if ((user as IGuildUser)?.RoleIds.Contains(guild.MuteRole) is true)
 				{
 					await ReplyAsync(EmoteHelper.Cross + " I'm no fool, but this one's got me beat. *`" + user + "` is already muted.*");

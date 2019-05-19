@@ -57,8 +57,19 @@
 				if (!CommandUtilities.HasPrefix(message.Content, botConfig.Prefix, out string output))
 					return;
 
-				var result = await _commands.ExecuteAsync(output, context, _services);
-				await CommandExecutedResultAsync(result, context);
+				try { 
+					var result = await _commands.ExecuteAsync(output, context, _services);
+					if (result is FailedResult failure)
+						await context.Channel.SendMessageAsync(EmoteHelper.Cross + "Error: " + failure.Reason.ToString());
+					else
+						await CommandExecutedResultAsync(result, context);
+				}
+				catch (Exception ex)
+				{
+					await context.Channel.SendMessageAsync(EmoteHelper.Cross + "Error: " + ex.Message);
+				}
+
+
 			}
 		}
 
