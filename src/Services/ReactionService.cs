@@ -69,7 +69,7 @@
 				var user = socketGuild.GetUser(reaction.UserId);
 				SocketRole role = null;
 
-				if (reaction.Emote.Name == EmoteHelper.Announcement.Name)
+				/*if (reaction.Emote.Name == EmoteHelper.Announcement.Name)
 					role = socketGuild.GetRole(guild.AnnouncementRole);
 				else if (reaction.Emote.Name == EmoteHelper.Lottery.Name)
 					role = socketGuild.GetRole(guild.LotteryRole);
@@ -77,7 +77,7 @@
 					role = socketGuild.GetRole(guild.XboxRole);
 				else if (reaction.Emote.Name == EmoteHelper.Playstation.Name)
 					role = socketGuild.GetRole(guild.PlaystationRole);
-
+				*/
 				if (!(role is null))
 				{
 					if (reactionAdded)
