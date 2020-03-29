@@ -258,17 +258,19 @@
 		public async Task ProcessLeaderboards()
 		{
 			var boards = new List<Task>();
-			foreach (var guild in await _database.Guilds.AsNoTracking().Include(x => x.Leaderboards).Where(x => x.EnableLeaderboardFeed && x.Leaderboards.Count > 0).ToListAsync())
+			foreach (var guildLocal in await _database.Guilds.AsNoTracking().Include(x => x.Leaderboards).Where(x => x.EnableLeaderboardFeed && x.Leaderboards.Count > 0).ToListAsync())
 			{
-				foreach (var leaderboard in guild.Leaderboards.Where(x => x.Enabled))
-					boards.Add(Task.Run(async () =>
-					{
-						await BuildLeaderboardAsync(leaderboard, _client.GetGuild(Convert.ToUInt64(guild.GuildId)));
-					}));
+				var guild = _client.GetGuild(Convert.ToUInt64(guildLocal.GuildId));
+				foreach (var leaderboard in guildLocal.Leaderboards.Where(x => x.Enabled))
+				{
+					var channel = guild.GetChannel(leaderboard.ChannelId) as SocketTextChannel;
+					//await channel.SendMessageAsync("Starting Leaderboard Task. Started: " + DateTime.Now.ToLongDateString());
+
+					boards.Add(Task.Run(async () =>	await BuildLeaderboardAsync(leaderboard, guild)));
+				}
 			}
 			Task isComplete = Task.WhenAll(boards);
 			await isComplete;
-
 			return;
 		}
 
@@ -470,27 +472,33 @@
 
 		private async Task BuildLeaderboardAsync(Leaderboard leaderboard, SocketGuild guild)
 		{
+			var channel = guild.GetChannel(leaderboard.ChannelId) as SocketTextChannel;
+			
 			LeaderboardData data = null;
 			try
 			{
+				//await channel.SendMessageAsync("Processing Leaderboard. Started: " + DateTime.Now.ToLongDateString());
 				data = await GetLeaderboardDataAsync(leaderboard.Console, leaderboard.Variant);
 
-				var channel = guild.GetChannel(leaderboard.ChannelId) as SocketTextChannel;
+				//await channel.SendMessageAsync("Clearing old Leaderboard: " + DateTime.Now.ToLongDateString());
 				foreach (var msg in await channel.GetMessagesAsync().FlattenAsync())
 				{
 					await msg.DeleteAsync();
 					await Task.Delay(1000);
 				}
 
+				//await channel.SendMessageAsync("Building new Leaderboard. Started: " + DateTime.Now.ToLongDateString());
 				await channel.SendMessageAsync(embed: BuildTopClassEmbed(data, leaderboard.Variant));
 				await channel.SendMessageAsync(embed: BuildFirstTopAscendancyEmbed(data));
 				await channel.SendMessageAsync(embed: BuildSecondTopAscendancyEmbed(data));
 				await channel.SendMessageAsync(embed: BuildDiscordOnlyEmbed(data, leaderboard.Variant));
 
 				await Task.Delay(15000);
+				//await channel.SendMessageAsync("Leaderboard Complete: " + DateTime.Now.ToLongDateString());
 			}
 			catch (Exception ex)
 			{
+				//await channel.SendMessageAsync("Leaderboards for this league could not be retrieved. Last attempted: " + DateTime.Now.ToLongDateString());
 				await _log.LogMessage(new LogMessage(LogSeverity.Error, "Leaderboard", string.Empty, ex));
 				return;
 			}
@@ -679,7 +687,7 @@
 		private async Task<LeaderboardData> GetLeaderboardDataAsync(string console, string variant)
 		{
 			LeaderboardData board = new LeaderboardData();
-			using (var response = await _httpClient.GetAsync("https://www.pathofexile.com/ladder/export-csv/league/" + variant + "/realm/" + console + "/index/1", HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
+			using (var response = await _httpClient.GetAsync("https://www.pathofexile.com/ladder/export-csv/league/" + variant + "?realm=" + console.ToLower(), HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
 			{
 				if (response.IsSuccessStatusCode)
 				{
