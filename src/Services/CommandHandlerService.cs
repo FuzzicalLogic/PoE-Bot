@@ -44,7 +44,7 @@
 			if (!(blacklist is null) || message.Source != MessageSource.User)
 				return;
 
-			await ProfanityHandler(message, guild);
+			//await ProfanityHandler(message, guild);
 
 			// Inline Wiki command, just because the users want it so bad
 			if (message.Content.Contains("[["))
@@ -104,7 +104,7 @@
 					break;
 
 				case CommandNotFoundResult notfound:
-					await context.Channel.SendMessageAsync(EmoteHelper.Cross + " I'm no beast of burden. *Command not found*");
+//					await context.Channel.SendMessageAsync(EmoteHelper.Cross + " I'm no beast of burden. *Command not found*");
 					break;
 
 				case ArgumentParseFailedResult args:
@@ -122,7 +122,7 @@
 					break;
 			}
 		}
-
+/*
 		private Task ProfanityHandler(SocketMessage message, Guild guild)
 		{
 			var socketGuild = (message.Author as SocketGuildUser)?.Guild;
@@ -139,5 +139,6 @@
 
 			return Task.CompletedTask;
 		}
+*/
 	}
 }
