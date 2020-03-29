@@ -70,20 +70,25 @@
 				return;
 
 			var message = cache.Value ?? await cache.GetOrDownloadAsync();
+			if (message is null) return;
 
-			if ((string.IsNullOrWhiteSpace(message.Content) && message.Attachments.Count is 0) || message.Author.IsBot)
+			if (message.Author.IsBot
+			|| (string.IsNullOrWhiteSpace(message.Content) && message.Attachments.Count is 0) 
+			|| (!string.IsNullOrWhiteSpace(message.Content) && message.Content.StartsWith("!")))
 				return;
 
 			if (guild.MessageLogChannel is 0)
 				return;
 
 			var embed = EmbedHelper.Embed(EmbedHelper.Deleted)
-				.WithAuthor(message.Author)
-				.WithThumbnailUrl((message.Author as SocketUser)?.GetAvatar())
-				.WithTitle("Message Deleted")
-				.AddField("**Channel**:", "#" + message.Channel.Name)
-				.AddField("**Content**:", message.Attachments.FirstOrDefault()?.Url ?? message.Content)
-				.WithCurrentTimestamp()
+				//.WithAuthor(message.Author)
+				//.WithThumbnailUrl((message.Author as SocketUser)?.GetAvatar())
+				//.WithTitle("Message Deleted")
+				.AddField("__**Message Deleted**__", "**Author:** " + message.Author + " (" + message.Author.Id + ")\n**Channel:** #" + message.Channel.Name + "\n**Content:** " + (message.Attachments.FirstOrDefault()?.Url ?? message.Content))
+
+				//.AddField("**Channel**:", "#" + message.Channel.Name)
+				//.AddField(" ", , true)
+				//.WithCurrentTimestamp()
 				.Build();
 
 			var socketGuild = (message.Author as SocketGuildUser)?.Guild;
