@@ -18,13 +18,14 @@
     using System.Net.Http;
     using System.Reflection;
     using System.Threading.Tasks;
-
+	
     public static class Core
     {
         private static async Task Main()
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+			var cfgPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "POEBot"); 
+			var configuration = new ConfigurationBuilder()
+                .SetBasePath(cfgPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
             var assembly = Assembly.GetEntryAssembly();
