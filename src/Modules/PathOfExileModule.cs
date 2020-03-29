@@ -109,6 +109,7 @@
 			//return PagedReplyAsync(items, $"{league} Price List");
 		}
 
+/*
 		[Command("Trial")]
 		[Name("Trial")]
 		[Description("Announce a Trial of Ascendancy that you have come across")]
@@ -185,7 +186,7 @@
 			else
 				return ReplyAsync(EmoteHelper.Cross + " It is the sovereign who empowers the sceptre. Not the other way round. *You've not added any Trials*");
 		}
-
+*/
 		[Command("Wiki")]
 		[Name("Wiki")]
 		[Description("Searches an item on the Path of Exile Wiki")]

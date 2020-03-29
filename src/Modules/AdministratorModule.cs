@@ -95,7 +95,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+/*
 		[Command("CaseLogChannel")]
 		[Name("Set CaseLogChannel")]
 		[Description("Set the channel for cases to be logged in")]
@@ -125,7 +125,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+*/
 		[Command("EnableDeletionLog")]
 		[Name("Set EnableDeletionLog")]
 		[Description("Choose if Message Deletion will be logged")]
@@ -200,7 +200,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+/*
 		[Command("MaxWarnings")]
 		[Name("Set MaxWarnings")]
 		[Description("Set the max warnings a user can receive before users are muted")]
@@ -215,7 +215,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+*/
 		[Command("MessageLogChannel")]
 		[Name("Set MessageLogChannel")]
 		[Description("Set the channel for deleted messages to be logged in")]
@@ -230,7 +230,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+/*
 		[Command("MuteRole")]
 		[Name("Set MuteRole")]
 		[Description("Set the role users are assigned when muted")]
@@ -260,7 +260,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+*/
 		[Command("RulesChannel")]
 		[Name("Set RulesChannel")]
 		[Description("Set the channel you want rules to be posted in")]

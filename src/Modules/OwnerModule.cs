@@ -49,7 +49,7 @@
 			await Context.Client.SetActivityAsync(new Game(message, activity));
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+/*
 		[Command("BlacklistAdd")]
 		[Name("Bot BlacklistAdd")]
 		[Description("Adds a user to the blacklist")]
@@ -260,7 +260,7 @@
 			await ReplyAsync(embed: embed.Build());
 			return;
 		}
-
+*/
 		[Command("Ping")]
 		[Name("Bot Ping")]
 		[Description("Returns the estimated connection time to the Discord servers")]
@@ -325,7 +325,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+/*
 		[Command("Token")]
 		[Name("Bot Token")]
 		[Description("Update the Bot Token through the bot, in case it somehow gets leaked, requires a restart")]
@@ -340,7 +340,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+*/
 		[Command("TwitchClientId")]
 		[Name("Bot TwitchClientId")]
 		[Description("Update the Twitch Client Id for the Twitch stream integration")]

@@ -58,7 +58,7 @@
 				.AddField("Shop Items", guild.Shops.Count(x => x.UserId == user.Id), true)
 				.Build());
 		}
-
+/*
 		[Command("Report")]
 		[Name("Report")]
 		[Description("Reports a user to the moderators")]
@@ -80,7 +80,7 @@
 				.WithDescription("**Reason:**\n" + reason)
 				.Build());
 		});
-
+*/
 		[Command("RoleInfo")]
 		[Name("RoleInfo")]
 		[Description("Displays information about a role")]
@@ -150,7 +150,7 @@
 
 			await ReplyAsync(embed: embed.Build());
 		}
-
+/*
 		[Command("UserInfo")]
 		[Name("UserInfo")]
 		[Description("Displays information about a user")]
@@ -173,5 +173,6 @@
 				.AddField("Classes", string.Join(", ", user.Roles.OrderBy(x => x.Position).Select(x => x.Name)), true)
 				.Build());
 		}
+*/
 	}
 }

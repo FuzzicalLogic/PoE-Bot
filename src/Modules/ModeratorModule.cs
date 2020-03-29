@@ -28,7 +28,7 @@
 	{
 		public DatabaseContext Database { get; set; }
 		public HttpClient HttpClient { get; set; }
-
+/*
 		[Command("Ban")]
 		[Name("Ban")]
 		[Description("Bans a user from the guild")]
@@ -173,7 +173,7 @@
 
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+*/
 		[Command("LeaderboardAdd")]
 		[Name("LeaderboardAdd")]
 		[Description("Add a Leaderboard to the list")]
@@ -270,7 +270,7 @@
 				await ReplyAsync(EmoteHelper.Cross + " Return to Kitava! *Wraeclast doesn't have any leaderboards.*");
 			}
 		}
-
+/*
 		[Command("Mute")]
 		[Name("Mute")]
 		[Description("Mutes a user for a given time")]
@@ -339,7 +339,7 @@
 
 				await user.TrySendDirectMessageAsync(embed: embed);
 			});
-
+*/
 		[Command("ProfanityList")]
 		[Name("ProfanityList")]
 		[Description("Lists all words in the profanity list")]
@@ -383,7 +383,7 @@
 			await Database.SaveChangesAsync();
 			await ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+/*
 		[Command("Purge", "Prune")]
 		[Name("Purge")]
 		[Description("Deletes Messages, and can specify a user")]
@@ -413,7 +413,7 @@
 
 			_ = Task.Delay(3000).ContinueWith(_ => message.DeleteAsync());
 		}
-
+*/
 		[Command("RssAdd")]
 		[Name("RssAdd")]
 		[Description("Add a Rss feed to the Rss list")]
@@ -747,7 +747,7 @@
 			await (message as IUserMessage)?.ModifyAsync(x => x.Embed = embed.Build());
 			await ReplyAsync("*Rules have been edited.* " + EmoteHelper.OkHand);
 		}
-
+/*
 		[Command("SoftBan")]
 		[Name("SoftBan")]
 		[Description("Bans a user then unbans them")]
@@ -768,7 +768,7 @@
 			_ = LogCaseAsync(user, CaseType.Softban, reason);
 			return ReplyWithEmoteAsync(EmoteHelper.OkHand);
 		}
-
+*/
 		[Command("StreamerAdd")]
 		[Name("StreamerAdd")]
 		[Description("Add a streamer to the Stream list")]
@@ -900,7 +900,7 @@
 				}
 			});
 		}
-
+/*
 		[Command("Unban")]
 		[Name("Unban")]
 		[Description("Unbans a user from the guild")]
@@ -1080,5 +1080,6 @@
 
 			await Database.SaveChangesAsync();
 		}
+*/
 	}
 }
