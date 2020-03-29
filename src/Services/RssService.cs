@@ -88,7 +88,7 @@
 						await _log.LogMessage(new LogMessage(LogSeverity.Debug, "RSS", "Feed: Updating " + feed.FeedUrl));
 						try
 						{
-							RssDataObject rssData = await GetRssAsync(feed.FeedUrl);
+							var rssData = await GetRssAsync(feed.FeedUrl);
 							List<RssItem> rssPosts = await ExcludeRecentPosts(feed, rssData);
 
 							SocketGuild socketGuild = _client.GetGuild(Convert.ToUInt64(guild.GuildId));
