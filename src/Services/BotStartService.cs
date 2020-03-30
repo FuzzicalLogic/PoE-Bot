@@ -46,7 +46,6 @@
 			_jobs.Initialize();
 		}
 
-			await Task.Delay(-1);
 		public async Task Start()
 		{
 			try

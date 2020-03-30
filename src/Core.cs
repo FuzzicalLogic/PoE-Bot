@@ -59,6 +59,7 @@
                 .BuildServiceProvider();
 
             await services.GetRequiredService<BotStartService>().InitializeAsync();
+			await Task.Delay(-1);
         }
     }
 }
