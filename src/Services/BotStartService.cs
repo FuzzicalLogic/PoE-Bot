@@ -6,6 +6,8 @@
 	using PoE.Bot.Attributes;
 	using PoE.Bot.Contexts;
 	using Qmmands;
+	using System;
+	using System.Net;
 	using System.Reflection;
 	using System.Threading.Tasks;
 
@@ -31,15 +33,33 @@
 
 		public async Task InitializeAsync()
 		{
-			await _client.LoginAsync(TokenType.Bot, (await _database.BotConfigs.AsNoTracking().FirstAsync()).BotToken);
-			await _client.StartAsync();
-			_commands.AddModules(Assembly.GetEntryAssembly());
+			await Start();
 
+			_commands.AddModules(Assembly.GetEntryAssembly());
+			AttachHandlers();
+		}
+
+		public void AttachHandlers()
+		{
 			_events.Initialize();
 			_reaction.Initialize();
 			_jobs.Initialize();
+		}
 
 			await Task.Delay(-1);
+		public async Task Start()
+		{
+			try
+			{
+				await _client.LoginAsync(TokenType.Bot, (await _database.BotConfigs.AsNoTracking().FirstAsync()).BotToken);
+				await _client.StartAsync();
+			}
+			catch (Exception ex)
+			{
+				if (ex != null)
+					return;
+				return;
+			}
 		}
 	}
 }
